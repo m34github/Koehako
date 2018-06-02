@@ -4,8 +4,8 @@ import index from '../.env/algoliasearch.config';
 const LOAD_HOME = 'LOAD_HOME';
 
 // action creator
-const loadHome = () => (dispatch) => {
-  index.search('目安箱', (err, content) => {
+const loadHome = keyword => (dispatch) => {
+  index.search(`目安箱 ${keyword}`, (err, content) => {
     dispatch({
       type: LOAD_HOME,
       payload: {
@@ -20,6 +20,7 @@ const loadHome = () => (dispatch) => {
 
 // initial state
 const initialState = {
+  result: [],
   isLoaded: false
 };
 

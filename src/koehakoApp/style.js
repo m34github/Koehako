@@ -1,20 +1,33 @@
 const common = {
   article: {
     padding: 12
+  },
+  wiredIcon: {
+    '--wired-icon-bg-color': '#fff'
   }
 };
 
 const home = {
   card: {
     width: '90%',
-    padding: 12
+    padding: 12,
+    background: '#fff'
   },
   cardSection: {
     padding: 12
   },
+  date: {
+    padding: 12
+  },
   header: {
     display: 'flex',
-    justifyContent: 'space-around'
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  sender: {
+    display: 'flex',
+    alignItems: 'center',
+    padding: 8
   }
 };
 

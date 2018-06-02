@@ -6,8 +6,18 @@ import Loader from './Loader.jsx';
 import { common, home } from '../style';
 
 class Home extends React.Component {
+  constructor(props) {
+    super(props);
+    this.keywordRef = React.createRef();
+  }
+
   componentDidMount() {
-    this.props.loadHome();
+    this.props.loadHome('');
+  }
+
+  search() {
+    const keyword = this.keywordRef.current.value;
+    this.props.loadHome(keyword);
   }
 
   render() {
@@ -16,16 +26,16 @@ class Home extends React.Component {
         <article style={common.article}>
           <header style={home.header}>
             <section>
-              <wired-combo selected={1}>
-                <wired-item value={1} text='わたしの "こえ"' />
-                <wired-item value={2} text='みんなの "こえ"' />
-              </wired-combo>
+              <wired-input
+                type="text"
+                placeholder="キーワード"
+                ref={this.keywordRef}
+              />
             </section>
             <section>
-              <wired-input placeholder="キーワード" />
-            </section>
-            <section>
-              <wired-icon-button>search</wired-icon-button>
+              <wired-icon-button style={common.wiredIcon} onClick={() => { this.search(); }}>
+                search
+              </wired-icon-button>
             </section>
           </header>
 
@@ -36,7 +46,19 @@ class Home extends React.Component {
               this.props.home.result.map(r => (
                 <section key={r.id} style={home.cardSection}>
                   <wired-card elevation={3} style={home.card}>
-                    {r.text}
+                    <h2>{r.text.replace('目安箱', '')}</h2>
+                    <hr />
+                    <section style={home.sender}>
+                      <section
+                        alt="avatar"
+                        style={{
+                          background: `url(https://avatars.dicebear.com/v2/male/${r.sender}.svg) center / cover`,
+                          width: 36,
+                          height: 36
+                        }}
+                      />
+                      <section style={home.date}>{r.date}</section>
+                    </section>
                   </wired-card>
                 </section>
               ))

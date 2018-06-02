@@ -6,8 +6,8 @@ import Home from '../components/Home.jsx';
 const mapStateToProps = state => state;
 
 const mapDispatchToProps = dispatch => ({
-  loadHome: () => {
-    dispatch(action.loadHome());
+  loadHome: (keyword) => {
+    dispatch(action.loadHome(keyword));
   }
 });
 
