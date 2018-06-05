@@ -29,14 +29,15 @@ class Home extends React.Component {
 
     if (this.props.home.isLoaded) {
       return (
-        <article style={common.article}>
+        <article>
           <header style={home.header}>
-            <section>
+            <section style={home.inputSection}>
               <wired-input
                 type="text"
                 placeholder="キーワード"
                 ref={this.keywordRef}
                 style={home.input}
+                onKeyPress={(e) => { if (e.key === 'Enter') this.search(); }}
               />
             </section>
             <section>
@@ -44,11 +45,19 @@ class Home extends React.Component {
                 search
               </wired-icon-button>
             </section>
+            <section>
+              <wired-icon-button
+                style={common.wiredIcon}
+                onClick={() => { window.location.reload(); }}
+              >
+                refresh
+              </wired-icon-button>
+            </section>
           </header>
 
           <hr />
 
-          <main>
+          <main style={home.main}>
             {
               this.props.home.result.map(r => (
                 <section key={r.id} style={home.cardSection}>
@@ -65,6 +74,17 @@ class Home extends React.Component {
                         }}
                       />
                       <section style={home.date}>{r.date.replace('T', ' ').replace('Z', '')}</section>
+                      <section
+                        alt="seal"
+                        style={{
+                          // background: 'url(assets/img/icon/seal.png) center / cover',
+                          background: 'url() center / cover',
+                          width: 36,
+                          height: 36,
+                          WebkitTransform: 'rotate(-20deg)',
+                          MozTransform: 'rotate(-20deg)'
+                        }}
+                      />
                     </section>
                   </wired-card>
                 </section>
