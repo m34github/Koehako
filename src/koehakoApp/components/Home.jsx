@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import 'wired-elements';
+import 'seedrandom';
 
 import Loader from './Loader.jsx';
 import { common, home } from '../style';
@@ -12,15 +13,20 @@ class Home extends React.Component {
   }
 
   componentDidMount() {
-    this.props.loadHome('');
+    this.props.search('', '目安箱');
   }
 
   search() {
     const keyword = this.keywordRef.current.value;
-    this.props.loadHome(keyword);
+    this.props.search(keyword, '目安箱');
   }
 
   render() {
+    const getGender = (sender) => {
+      Math.seedrandom(sender);
+      return Math.round(Math.random()) ? 'male' : 'female';
+    };
+
     if (this.props.home.isLoaded) {
       return (
         <article style={common.article}>
@@ -30,6 +36,7 @@ class Home extends React.Component {
                 type="text"
                 placeholder="キーワード"
                 ref={this.keywordRef}
+                style={home.input}
               />
             </section>
             <section>
@@ -52,12 +59,12 @@ class Home extends React.Component {
                       <section
                         alt="avatar"
                         style={{
-                          background: `url(https://avatars.dicebear.com/v2/male/${r.sender}.svg) center / cover`,
+                          background: `url(https://avatars.dicebear.com/v2/${getGender(r.sender)}/${r.sender}.svg) center / cover`,
                           width: 36,
                           height: 36
                         }}
                       />
-                      <section style={home.date}>{r.date}</section>
+                      <section style={home.date}>{r.date.replace('T', ' ').replace('Z', '')}</section>
                     </section>
                   </wired-card>
                 </section>
@@ -77,7 +84,7 @@ class Home extends React.Component {
 
 Home.propTypes = {
   home: PropTypes.object.isRequired,
-  loadHome: PropTypes.func.isRequired
+  search: PropTypes.func.isRequired
 };
 
 export default Home;

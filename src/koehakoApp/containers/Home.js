@@ -6,8 +6,8 @@ import Home from '../components/Home.jsx';
 const mapStateToProps = state => state;
 
 const mapDispatchToProps = dispatch => ({
-  loadHome: (keyword) => {
-    dispatch(action.loadHome(keyword));
+  search: (keyword, filter = '') => {
+    dispatch(action.search(keyword, filter));
   }
 });
 

@@ -1,13 +1,13 @@
 import index from '../.env/algoliasearch.config';
 
 // action type
-const LOAD_HOME = 'LOAD_HOME';
+const SEARCH = 'SEARCH';
 
 // action creator
-const loadHome = keyword => (dispatch) => {
-  index.search(`目安箱 ${keyword}`, (err, content) => {
+const search = (keyword, filter) => (dispatch) => {
+  index.search(filter + keyword, (err, content) => {
     dispatch({
-      type: LOAD_HOME,
+      type: SEARCH,
       payload: {
         result: content.hits
       },
@@ -27,7 +27,7 @@ const initialState = {
 // reducer
 const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case LOAD_HOME: {
+    case SEARCH: {
       return Object.assign({}, state, {
         result: action.payload.result,
         isLoaded: action.meta.isLoaded
@@ -39,5 +39,5 @@ const reducer = (state = initialState, action) => {
   }
 };
 
-export { loadHome };
+export { search };
 export default reducer;

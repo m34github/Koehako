@@ -21,12 +21,16 @@ const home = {
   },
   header: {
     display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center'
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  input: {
+    width: '140%'
   },
   sender: {
     display: 'flex',
     alignItems: 'center',
+    fontFamily: 'Tanuki',
     padding: 8
   }
 };
